@@ -2,6 +2,10 @@ package com.example.tppersistencia;
 
 import com.example.tppersistencia.repositorios.*;
 import com.example.tppersistencia.entidades.*;
+import com.example.tppersistencia.utils.Estado;
+import com.example.tppersistencia.utils.FormaPago;
+import com.example.tppersistencia.utils.Tipo;
+import com.example.tppersistencia.utils.TipoEnvio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -47,13 +51,13 @@ public class TpPersistenciaApplication {
     CommandLineRunner init() {
         return args -> {
 
-            Factura factura1 = Factura.builder().fecha("12/6/2003").numero(1).descuento(0.6).formaPago("efectivo").total(1000).build();
-            Factura factura2 = Factura.builder().fecha("12/7/2003").numero(2).descuento(0.6).formaPago("efectivo").total(1250).build();
-            Factura factura3 = Factura.builder().fecha("12/8/2003").numero(3).descuento(0.6).formaPago("efectivo").total(2000).build();
+            Factura factura1 = Factura.builder().fecha("12/6/2003").numero(1).descuento(0.6).formaPago(FormaPago.EFECTIVO).total(1000).build();
+            Factura factura2 = Factura.builder().fecha("12/7/2003").numero(2).descuento(0.6).formaPago(FormaPago.MERCADO_PAGO).total(1250).build();
+            Factura factura3 = Factura.builder().fecha("12/8/2003").numero(3).descuento(0.6).formaPago(FormaPago.TRANSFERENCIA).total(2000).build();
 
-            Pedido pedido1 = Pedido.builder().fecha("11/7/2004").estado("Pendiente").horaEstimadaEntrega("13:30").tipoEnvio("Delivery").total(2000d).factura(factura1).build();
-            Pedido pedido2 = Pedido.builder().fecha("11/8/2004").estado("Pendiente").horaEstimadaEntrega("13:30").tipoEnvio("Retira").total(2000d).factura(factura2).build();
-            Pedido pedido3 = Pedido.builder().fecha("11/9/2004").estado("Pendiente").horaEstimadaEntrega("13:30").tipoEnvio("Delivery").total(2000d).factura(factura3).build();
+            Pedido pedido1 = Pedido.builder().fecha("11/7/2004").estado(Estado.ENTREGADO).horaEstimadaEntrega("13:30").tipoEnvio(TipoEnvio.DELIVERY).total(2000d).factura(factura1).build();
+            Pedido pedido2 = Pedido.builder().fecha("11/8/2004").estado(Estado.PREPARADO).horaEstimadaEntrega("13:30").tipoEnvio(TipoEnvio.DELIVERY).total(2000d).factura(factura2).build();
+            Pedido pedido3 = Pedido.builder().fecha("11/9/2004").estado(Estado.INICIADO).horaEstimadaEntrega("13:30").tipoEnvio(TipoEnvio.RETIRA).total(2000d).factura(factura3).build();
             List<Pedido> pedidos = new ArrayList<>();
             pedidos.add(pedido1);
             pedidos.add(pedido2);
@@ -78,7 +82,7 @@ public class TpPersistenciaApplication {
 
             Rubro rubro = Rubro.builder().denominacion("Ejemplo").build();
 
-            Producto producto = Producto.builder().tipo("A").tiempoEstimadoCocina(2).denominacion("...").precioVenta(2000d).precioCompra(1000d).stockActual(4).stockMinimo(1).unidadMedida("cm").foto("No hay foto aún").receta("...").rubro(rubro).build();
+            Producto producto = Producto.builder().tipo(Tipo.INSUMO).tiempoEstimadoCocina(2).denominacion("...").precioVenta(2000d).precioCompra(1000d).stockActual(4).stockMinimo(1).unidadMedida("cm").foto("No hay foto aún").receta("...").rubro(rubro).build();
 
             DetallePedido detallePedido = DetallePedido.builder().cantidad(2).subtotal(2300d).producto(producto).build();
 

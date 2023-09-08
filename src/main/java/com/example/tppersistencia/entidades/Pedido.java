@@ -2,6 +2,8 @@ package com.example.tppersistencia.entidades;
 
 import java.util.List;
 
+import com.example.tppersistencia.utils.Estado;
+import com.example.tppersistencia.utils.TipoEnvio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +18,15 @@ import lombok.NoArgsConstructor;
 public class Pedido extends EntidadBase {
 
     private String fecha;
-    private String estado; // (Iniciado - Preparacion - Entregado)
+
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
+
     private String horaEstimadaEntrega;
-    private String tipoEnvio; // (Delivery - Retira)
+
+    @Enumerated(EnumType.STRING)
+    private TipoEnvio tipoEnvio;
+
     private Double total;
 
     @OneToOne

@@ -1,8 +1,7 @@
 package com.example.tppersistencia.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.example.tppersistencia.utils.Tipo;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Producto extends EntidadBase{
-    private String tipo; // (Manufacturada - Insumo)
+
+    @Enumerated(EnumType.STRING)
+    private Tipo tipo;
+
     private int tiempoEstimadoCocina;
     private String denominacion;
     private Double precioVenta;

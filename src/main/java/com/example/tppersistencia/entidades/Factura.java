@@ -1,6 +1,9 @@
 package com.example.tppersistencia.entidades;
 
+import com.example.tppersistencia.utils.FormaPago;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +23,9 @@ public class Factura extends EntidadBase {
     private String fecha;
     private int numero;
     private Double descuento;
-    private String formaPago;
+
+    @Enumerated(EnumType.STRING)
+    private FormaPago formaPago;
+
     private int total;
 }
